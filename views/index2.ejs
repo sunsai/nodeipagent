@@ -14,7 +14,7 @@
     <div class="col-md-10">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <!--<p><%= title %></p>-->
+          <p><%= title %></p>
         </div>
         <ul class="nav nav-tabs">
           <li class=""><a href="#">国内代理</a></li>
@@ -31,6 +31,19 @@
             <th>类型</th>
             <th>时间</th>
             </thead>
+            <tbody>
+            <% for(var i = 0; i < ips.length; i++) { %>
+            <tr>
+              <td><%=ips[i].id%></td>
+              <td><%=ips[i].ip%></td>
+              <td><%=ips[i].port%></td>
+              <td><%=ips[i].dis%></td>
+              <td><%=ips[i].user%></td>
+              <td><%=ips[i].type%></td>
+              <td><%=ips[i].time%></td>
+            </tr>
+            <% } %>
+            </tbody>
           </table>
         </div>
       </div>
