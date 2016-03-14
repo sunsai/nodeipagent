@@ -1,6 +1,83 @@
 <% include header %>
 
-  <h1><%-title %></h1>
-  <p>Welcome to <%-title %></p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-2">
+      <ul class="list-group">
+        <li class="list-group-item active">
+          <a href="#">西祠代理</a>
+        </li>
+        <li class="list-group-item">
+          <a href="#">今日代理</a>
+        </li>
+        <li class="list-group-item">
+          <a href="#">西祠代理</a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-10">
+      <div class="panel panel-default">
+        <!--<div class="page-header">-->
+        <!--<p>代理列表</p>-->
+        <!--</div>-->
+        <!--<div class="panel-heading">-->
+        <!--<p>代理列表</p>-->
+        <!--</div>-->
+        <ul class="nav nav-tabs">
+          <li class=""><a href="#">国内代理</a></li>
+          <li class="active"><a href="#">国外代理</a></li>
+        </ul>
+        <div class="panel-body">
 
+          <table class="table">
+            <thead>
+            <th>编号</th>
+            <th>标题</th>
+            <th>内容</th>
+            </thead>
+            <tbody>
+            <tr>
+              <td>1</td>
+              <td>标题1</td>
+              <td>内同11111111111111111</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>标题1</td>
+              <td>内同11111111111111111</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>标题1</td>
+              <td>内同11111111111111111</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>标题1</td>
+              <td>内同11111111111111111</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>标题1</td>
+              <td>内同11111111111111111</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function () {
+    $('.list-group li').click(function () {
+      $('.list-group li').removeClass('active');
+      $(this).addClass('active');
+    });
+    $('ul.nav.nav-tabs li').click(function () {
+      $('ul.nav.nav-tabs li').removeClass('active');
+      $(this).addClass('active');
+    })
+  })
+</script>
 <% include footer %>

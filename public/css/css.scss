@@ -1,0 +1,38 @@
+body {
+  font-family: "Microsoft YaHei UI Light";
+  font-size: 14px;
+}
+
+.list-group {
+  margin-top: 75px;
+  .list-group-item {
+    text-align: center;
+  }
+  $tags: (link, visited, active, hover);
+  a {
+    font-weight: 500;
+    font-size: 14px;
+    color: rgba(95, 90, 104, 1);
+    @each $key in $tags {
+      &:#{$key} {
+        text-decoration: none;
+      }
+    }
+
+  }
+}
+
+.panel,.panel-default {
+  margin-top: 75px;
+  .panel-heading{
+    font-weight: 500;
+  }
+}
+
+.navbar-fixed-top {
+  height: 70px;
+}
+.nav,.nav-tabs{
+  margin-top: 10px;
+  font-weight: 500;
+}
