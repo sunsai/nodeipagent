@@ -6,7 +6,7 @@ var s = require('../spiders/ipspiders')
 router.get('/', function(req, res) {
   var ss = new s('http://www.xicidaili.com/');
   ss.getData(res);
-  res.render('index', { title: 'Express' });
+  //res.render('index', { title: 'Express', });
 });
 
 module.exports = router;

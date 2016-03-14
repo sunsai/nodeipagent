@@ -13,17 +13,36 @@
   ipspiders.prototype = {
     getData: function(response) {
       return superagent.get(this.page).end(function(err, res) {
-        var $, iplists;
+        var $, id, iplists;
         if (err) {
           return console.error(err);
         } else {
-          $ = cheerio.load(res.text);
           iplists = [];
+          $ = cheerio.load(res.text);
           console.log("========================^_^======================");
-          $('#ip_list tbody tr td').each(function() {
-            return console.log($(this));
+          id = 0;
+          $('table tr').each(function(i, elem) {
+            var ip;
+            ip = $(this).find('td:nth-child(2)').text().trim();
+            if (ip) {
+              iplists.push({
+                id: id,
+                ip: ip,
+                port: $(this).find('td:nth-child(3)').text().trim(),
+                dis: $(this).find('td:nth-child(4)').text().trim(),
+                user: $(this).find('td:nth-child(5)').text().trim(),
+                type: $(this).find('td:nth-child(6)').text().trim(),
+                time: $(this).find('td:nth-child(7)').text().trim()
+              });
+              return id += 1;
+            }
           });
-          return console.log("========================^_^======================");
+          console.log(iplists);
+          console.log("========================^_^======================");
+          return response.render('index', {
+            title: 'Express',
+            ips: iplists
+          });
         }
       });
     }
