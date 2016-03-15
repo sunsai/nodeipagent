@@ -6,25 +6,56 @@
 
   cheerio = require('cheerio');
 
-  ipspiders = function(page) {
-    return this.page = page;
+  ipspiders = function(type) {
+    return this.type = type;
   };
 
+  ipspiders();
+
   ipspiders.prototype = {
+    agents: {
+      xc: {
+        gn: ['http://www.xicidaili.com/nt/', 'http://www.xicidaili.com/nn/'],
+        gw: ['http://www.xicidaili.com/wn/', 'http://www.xicidaili.com/wt/']
+      },
+      td: {
+        gn: ['http://www.kuaidaili.com/free/inha/', 'http://www.kuaidaili.com/free/intr/'],
+        gw: ['http://www.kuaidaili.com/free/outha/', 'http://www.kuaidaili.com/free/outtr/']
+      }
+    },
     getData: function(response) {
-      return superagent.get(this.page).end(function(err, res) {
-        var $, iplists;
-        if (err) {
-          return console.error(err);
-        } else {
-          $ = cheerio.load(res.text);
-          iplists = [];
-          console.log("========================^_^======================");
-          $('#ip_list tbody tr td').each(function() {
-            return console.log($(this));
-          });
-          return console.log("========================^_^======================");
-        }
+      var i, ips, len, page, ref;
+      ips = [];
+      ips.push({
+        gn: ''
+      });
+      ref = this.agents[this.type].gn;
+      for (i = 0, len = ref.length; i < len; i++) {
+        page = ref[i];
+        superagent.get(page).end(function(err, res) {
+          var $;
+          if (err) {
+            return console.error(err);
+          } else {
+            $ = cheerio.load(res.text);
+            $('table tbody tr').each(function() {
+              return ips.push({
+                ip: $(this).find('td:nth-child(1)').text(),
+                port: $(this).find('td:nth-child(2)').text(),
+                user: $(this).find('td:nth-child(3)').text(),
+                pro: $(this).find('td:nth-child(4)').text(),
+                dist: $(this).find('td:nth-child(5)').text(),
+                time: $(this).find('td:nth-child(6)').text(),
+                date: $(this).find('td:nth-child(7)').text()
+              });
+            });
+            return console.log(ips);
+          }
+        });
+        console.log(page);
+      }
+      return res.render('index', {
+        title: 'Express'
       });
     }
   };
