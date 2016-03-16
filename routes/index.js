@@ -5,7 +5,7 @@ var s = require('../spiders/ipspiders')
 
 router.get('/', function (req, res) {
   var type = (req.query.s == undefined)?'xc':req.query.s.toString();
-  var ss = new s(type);
+  var ss = new s('td');
   ss.getData(res);
   //res.render('index', {title: 'Express',});
 })

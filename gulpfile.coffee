@@ -1,43 +1,38 @@
-gulp =require('gulp')
-del =require('del')
-minijs = require('gulp-uglify')
-minicss=require('gulp-minify-css')
-minihtml=require('gulp-minify-html')
-browsersync =require('browser-sync')
-runsequence=require('run-sequence')
-
+#// Gulpfile.js
+gulp = require('gulp')
+nodemon = require('gulp-nodemon')
+runSequence = require('run-sequence')
+browsersync = require('browser-sync')
 gulp.task('default',(callback)->
-  runsequence(['clean'],['build'],['server','watch'],callback)
+  runSequence(['clean'],['develop','brsync','watch'],callback)
 )
 gulp.task('clean',(callback)->
-  del('',callback)
+  console.log('this is clean task .....')
+  callback()
 )
-gulp.task('miniJS',->
 
+gulp.task('develop', ->
+  nodemon({
+    script: './bin/www'
+    ext: 'html ejs js'
+    , tasks: ['clean']
+  }).on('restart', ->
+    console.log('=========================restarted!')
+  )
 )
-gulp.task('miniCSS',->
-
+gulp.task('brsync', ->
+  browsersync({
+    proxy: 'http://localhost:3000'
+    port: 8888
+    notify: true
+  })
 )
-gulp.task('miniHTML',->
-
+gulp.task('watch', ->
+  gulp.watch(['./routes/**/*.js', './views/**/*.ejs', './public/css/style.css'], ['reload-server'])
 )
-gulp.task('build',(callback)->
-  runsequence(['miniCSS','miniJS'],callback)
+gulp.task('reload-server', (callback) ->
+  runSequence(['develop'],['bs-reload'],callback)
 )
-gulp.task('server',->
-    browsersync.init({
-#      server:{
-#        baseDir:'./bin'
-#      }
-      port:3000
-    })
-)
-gulp.task('watch',->
-  gulp.watch(['./routes/**/*.js','./views/**/*.ejs','./public/css/style.css'],['reload'])
-)
-gulp.task('reload',(callback)->
-  runsequence(['build'],['reload-browser'],callback)
-)
-gulp.task('reload-browser',->
+gulp.task('bs-reload', ->
   browsersync.reload()
 )

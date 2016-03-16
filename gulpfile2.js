@@ -21,7 +21,7 @@ gulp.task('develop', function () {
     ext: 'js ejs coffee',
     stdout: false
   }).on('readable', function () {
-    this.stdout.on('data', function (chunk) {
+    this.stdout.on('`', function (chunk) {
       if(/^Express server listening on port/.test(chunk)){
         livereload.changed(__dirname);
       }
